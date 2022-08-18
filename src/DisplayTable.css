@@ -1,0 +1,263 @@
+.displayTableContainer{
+    display: grid;
+    grid-template-rows: 10vh 4vh 1fr 4vh;
+    width: 90%;
+    border-radius: 5px;
+    background-color: white;
+    margin: auto;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    overflow: visible;
+    border: #a7a7a7 1px solid;
+  }
+  
+  .filterBox{
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 18fr 1fr;
+    padding-bottom: 20px;
+    border-bottom: #a7a7a7 1px solid;
+  }
+
+  .filterBox button{
+    grid-row: 1;
+    height: 50%;
+    width: 50%;
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
+    border: 0px;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: xx-large;
+  }
+
+  .filterBox button:active{
+    opacity: 0.6;
+  }
+
+
+  .searchBox{
+    grid-column: 1/3;
+    grid-row: 1;
+    display: flex;
+    justify-content: center;
+    align-items:flex-end;
+  }
+  
+  .filterBox input{
+    box-sizing: content-box;
+    width: 80%;
+    border-width: 0px 0px 1px 0px;
+    background-color: transparent;
+    border-color: gray;
+    color: black;
+    cursor: pointer;
+    outline-width: 0px;
+  }
+  
+
+  .headers{
+    box-sizing: border-box;
+    display: grid;
+    height: 100%;
+    width: 100%;
+    border-bottom: #a7a7a7 1px solid;
+    background-color: #f0f0f0;
+  }
+  
+  .headers button{
+    border: 0px solid #a7a7a7;
+    border-width: 0px 1px 0px 0px;
+    height: 100%;
+    background-color: transparent;
+    color: black;
+    cursor: pointer;
+  }
+  
+  .headers button:hover{
+    color:gray
+  }
+  
+  .contentBox{
+    box-sizing: content-box;
+    min-height: 10ch;
+    height: 100%;
+    width: 100%;
+    /* background-color: #EDF5E1; */
+    display: grid;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .contentBox.empty{
+    box-sizing: border-box;
+    border-bottom: 1px solid #a7a7a7;
+  }
+  
+  .contentBox p{
+    text-align: center;
+    padding-top: 3ch;
+    margin: 0;
+    height: 5ch;
+    border: #a7a7a7 0.5px solid;
+    border-width: 0px 1px 0px 0px;
+  }
+  
+  .contentBoxButton{
+    margin: 10px;
+    margin-top: 2.5ch;
+    border-radius: 5px;
+    height: 50%;
+    color: white;
+    cursor: pointer;
+  }
+
+  .contentBoxButton:active{
+    opacity: 0.6;
+  }
+
+  .row{
+    display: grid;
+    box-sizing: border-box;
+    border-width: 0px 0px 1px 0px;
+    border-color: #a7a7a7;
+    border-style: solid;
+  }
+
+  .row:hover{
+    background-color:#f0f0f0;
+  }
+  
+  .footer{
+    box-sizing: content-box;
+    height: 100%;
+    width: 100%;
+    background-color: #f0f0f0;
+    display: grid;
+    grid-template-columns: 10% 10% 3fr 1fr;
+  }
+  
+  .test{
+    box-sizing: content-box;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .footer button{
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+    color: black;
+  }
+  
+  .footer button:hover{
+    color: gray;
+  }
+
+  .modalOverlay{
+    background-color: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  .modal{
+    height: auto;
+    width: 30%;
+    background-color: white;
+    position: absolute;
+    left: 35%;
+    top: 25%;
+    border-radius: 5px;
+    padding: 10px 20px 20px 20px;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .buttonRow{
+    display: flex;
+    padding-top: 5%;
+    justify-content: right;
+  }
+
+  .buttonRow button{
+    border-radius: 10px;
+    cursor: pointer;
+    width: 20%;
+    height: 5ch;
+    margin: 5px;
+    color: white;
+  }
+
+  .redButton{
+    background-color: rgb(255, 0, 0);
+    border: 1px solid rgb(182, 0, 0);
+  }
+
+  .greenButton{
+    background-color: rgb(0, 180, 0);
+    border: 1px solid rgb(0, 121, 0);
+  }
+
+  .buttonRow button:active{
+    /* background-color: rgb(255, 79, 79); */
+    opacity: 0.6;
+  }
+
+  .threeDotsMenu{
+    /* background-color: red; */
+    /* overflow: hidden; */
+    position: relative;
+    /* width: 50px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .threeDotsButton{
+    color: black;
+    border-radius: 100%;
+    height: 30px;
+    width: 30px;
+    border: 0px;
+    background-color: transparent;
+    cursor: pointer;
+    /* top: 30%; */
+    /* position: relative; */
+  }
+
+  .threeDotsButton:active{
+    background-color: #a7a7a7;
+  }
+
+  .menuModal{
+    width: 12ch;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px #a7a7a7 solid;
+    position: absolute;
+    z-index: 2;
+    top: 45px;
+    left: 15px;
+    visibility: hidden;
+    overflow: hidden;
+  }
+
+  .menuModal button{
+    width: 100%;
+    height: 5ch;
+    cursor: pointer;
+    border: 0px;
+    font-size: medium;
+    background-color: white;
+  }
+
+  .menuModal button:hover{
+    background-color:#f0f0f0;
+  }
