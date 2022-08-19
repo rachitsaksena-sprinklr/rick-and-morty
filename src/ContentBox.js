@@ -1,6 +1,7 @@
 import * as React from "react";
 import { ThreeDotsMenu } from "./ThreeDotsMenu";
 import { Rings } from "react-loader-spinner";
+// import { useVirtualizer } from "@tanstack/react-virtual";
 
 function Row({
   row = [],
@@ -47,7 +48,17 @@ function ContentBox({
   handler,
   getKey,
   loading,
+  onLoadMore,
+  containerRef,
 }) {
+  // const parentRef = React.useRef();
+
+  // const rowVirtualizer = useVirtualizer({
+  //   count: 10000,
+  //   getScrollElement: () => parentRef.current,
+  //   estimateSize: () => 35,
+  // });
+
   if (loading) {
     return (
       <div className="contentBox">
@@ -62,24 +73,37 @@ function ContentBox({
     gridTemplateRows: templateRows || `repeat(${rows.length}, 1fr)`,
     gridTemplateColumns: "1fr",
   };
+
+  const handleScroll = (e) => {
+    const bottom =
+      e.target.scrollHeight - (e.target.scrollTop + e.target.clientHeight) < 1;
+    if (bottom) {
+      console.log("reached bottom!");
+      onLoadMore();
+    }
+  };
+
   return (
-    <div className="contentBox" style={styleProps}>
-      {rows.map((row) => {
-        return (
-          <Row
-            templateColumns={templateColumns}
-            key={getKey(row)}
-            identifier={getKey(row)}
-            row={row}
-            isStrikeThrough={
-              states.get(getKey(row))
-                ? states.get(getKey(row)).strikeThrough
-                : false
-            }
-            handler={handler}
-          />
-        );
-      })}
+    <div
+      className="contentBox"
+      style={styleProps}
+      onScroll={handleScroll}
+      ref={containerRef}
+    >
+      {rows.map((row) => (
+        <Row
+          templateColumns={templateColumns}
+          key={getKey(row)}
+          identifier={getKey(row)}
+          row={row}
+          isStrikeThrough={
+            states.get(getKey(row))
+              ? states.get(getKey(row)).strikeThrough
+              : false
+          }
+          handler={handler}
+        />
+      ))}
     </div>
   );
 }

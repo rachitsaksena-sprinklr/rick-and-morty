@@ -21,6 +21,7 @@ const initialState = {
 };
 
 function reducer(state, action) {
+  // console.log("called dispatch");
   switch (action.type) {
     case "CONFIRM":
       const newMap_cnf = new Map(state.rowStates);
@@ -31,6 +32,7 @@ function reducer(state, action) {
       return { ...state, showModal: false };
 
     case "SEARCH":
+      // console.log(action.args.event.target.value);
       return {
         ...state,
         searchKeyword: action.args.event.target.value,
@@ -42,7 +44,6 @@ function reducer(state, action) {
       return { ...state, rowStates: new Map(), sortIndex: 0, sortType: 0 };
 
     case "SORT":
-      console.log(state);
       let sortType = 1,
         newContent = state.content;
       if (action.args.index === state.sortIndex) {
@@ -57,7 +58,6 @@ function reducer(state, action) {
       } else {
         newContent = sortContent(state.content, 0, true);
       }
-      console.log(action.args.index, sortType);
       return {
         ...state,
         content: newContent,
@@ -85,7 +85,8 @@ function reducer(state, action) {
 
     case "UPDATE":
       return { ...state, ...action.args };
-
+    case "ADD-CONTENT":
+      return { ...state, content: [...state.content, ...action.args.content] };
     default:
       throw new Error("unhandled case in reducer!");
   }
@@ -93,14 +94,16 @@ function reducer(state, action) {
 
 function DisplayTable({ headers, templateColumns }) {
   const [state, dispatch] = React.useReducer(reducer, initialState);
+  const contentBox = React.useRef();
 
-  const { loading } = useData({
+  const { loading, fetchMore } = useData({
     variables: {
       searchKeyword: state.searchKeyword,
-      page: state.page,
+      // page: state.page,
     },
     fetchPolicy: "network-only",
     onCompleted: (data) => {
+      // console.log(data);
       // console.log("called onComplete: ", data.characters.results[0].id);
       dispatch({
         type: "UPDATE",
@@ -112,12 +115,39 @@ function DisplayTable({ headers, templateColumns }) {
             character.species,
             character.gender,
           ]),
-          isNext: data.characters.info.next,
-          isPrev: data.characters.info.prev,
+          page: data.characters.info.next - 1,
         },
       });
     },
   });
+
+  const onLoadMore = () => {
+    fetchMore({
+      variables: {
+        searchKeyword: state.searchKeyword,
+        page: state.page + 1,
+      },
+      updateQuery: (previousResult, { fetchMoreResult }) => {
+        return {
+          characters: {
+            __typename: "Characters",
+            info: { next: state.page + 2, prev: state.page },
+            results: [
+              ...previousResult.characters.results,
+              ...fetchMoreResult.characters.results,
+            ],
+          },
+        };
+      },
+    });
+  };
+
+  const toTop = (event) => {
+    contentBox.current.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   const rows = state.content.filter(
     (row) =>
@@ -142,8 +172,15 @@ function DisplayTable({ headers, templateColumns }) {
         templateColumns={templateColumns}
         handler={dispatch}
         loading={loading}
+        onLoadMore={onLoadMore}
+        containerRef={contentBox}
       />
-      <Footer isNext={state.isNext} isPrev={state.isPrev} handler={dispatch} />
+      <Footer
+        isNext={state.isNext}
+        isPrev={state.isPrev}
+        handler={dispatch}
+        toTop={toTop}
+      />
     </div>
   );
 }

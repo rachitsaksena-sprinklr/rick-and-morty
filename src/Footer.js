@@ -1,7 +1,7 @@
 import * as React from "react";
 import { AiOutlineVerticalAlignTop } from "react-icons/ai";
 
-function Footer({ isNext, isPrev, handler }) {
+function Footer({ isNext, isPrev, handler, toTop }) {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -29,10 +29,7 @@ function Footer({ isNext, isPrev, handler }) {
       >
         Next
       </button>
-      <button
-        style={{ gridColumn: -2, fontSize: "xx-large" }}
-        onClick={scrollToTop}
-      >
+      <button style={{ gridColumn: -2, fontSize: "xx-large" }} onClick={toTop}>
         <AiOutlineVerticalAlignTop />
       </button>
     </div>
