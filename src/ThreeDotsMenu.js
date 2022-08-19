@@ -1,7 +1,7 @@
 import * as React from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-function ThreeDotsMenu({ Key, handler }) {
+function ThreeDotsMenu({ identifier, handler }) {
   const [visibleModal, setVisibleModal] = React.useState(false);
 
   function clickHandler() {
@@ -20,7 +20,7 @@ function ThreeDotsMenu({ Key, handler }) {
         <button
           className=""
           onClick={() => {
-            handler({ type: "STRIKETHROUGH", args: { Key } });
+            handler({ type: "STRIKETHROUGH", args: { identifier } });
             setVisibleModal(false);
           }}
           key={1}
@@ -30,7 +30,7 @@ function ThreeDotsMenu({ Key, handler }) {
         <button
           className=""
           onClick={(event) => {
-            handler({ type: "DELETE", args: { Key } });
+            handler({ type: "DELETE", args: { identifier } });
             setVisibleModal(false);
           }}
           key={2}

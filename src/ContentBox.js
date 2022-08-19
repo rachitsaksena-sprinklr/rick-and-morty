@@ -2,7 +2,13 @@ import * as React from "react";
 import { ThreeDotsMenu } from "./ThreeDotsMenu";
 import { Rings } from "react-loader-spinner";
 
-function Row({ row = [], Key, isStrikeThrough, templateColumns, handler }) {
+function Row({
+  row = [],
+  identifier,
+  isStrikeThrough,
+  templateColumns,
+  handler,
+}) {
   const numCols = row.length;
   const styleProps = {
     gridTemplateColumns: templateColumns || `repeat(${numCols}, 5fr) 1fr`,
@@ -18,7 +24,13 @@ function Row({ row = [], Key, isStrikeThrough, templateColumns, handler }) {
     </p>
   ));
   cells.push(
-    <ThreeDotsMenu Key={Key} key={row.length + 1} handler={handler} />
+    <div key={row.length + 1}>
+      <ThreeDotsMenu
+        identifier={identifier}
+        key={row.length + 1}
+        handler={handler}
+      />
+    </div>
   );
   return (
     <div className="row" style={styleProps}>
@@ -57,7 +69,7 @@ function ContentBox({
           <Row
             templateColumns={templateColumns}
             key={getKey(row)}
-            Key={getKey(row)}
+            identifier={getKey(row)}
             row={row}
             isStrikeThrough={
               states.get(getKey(row))
