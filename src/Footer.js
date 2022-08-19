@@ -1,7 +1,7 @@
 import * as React from "react";
 import { AiOutlineVerticalAlignTop } from "react-icons/ai";
 
-function Footer({ pageState, handler }) {
+function Footer({ isNext, isPrev, handler }) {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -12,7 +12,7 @@ function Footer({ pageState, handler }) {
   return (
     <div className="footer">
       <button
-        style={{ display: pageState.isPrev ? "" : "none", gridColumn: 1 }}
+        style={{ display: isPrev ? "" : "none", gridColumn: 1 }}
         onClick={() => {
           handler({ type: "PREV" });
           scrollToTop();
@@ -21,7 +21,7 @@ function Footer({ pageState, handler }) {
         Prev
       </button>
       <button
-        style={{ display: pageState.isNext ? "" : "none", gridColumn: 2 }}
+        style={{ display: isNext ? "" : "none", gridColumn: 2 }}
         onClick={() => {
           handler({ type: "NEXT" });
           scrollToTop();

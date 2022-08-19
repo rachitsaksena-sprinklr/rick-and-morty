@@ -1,6 +1,14 @@
 import * as React from "react";
 
-function Headers({ headers = [], templateColumns, buttonStates, handler }) {
+const symbolMap = ["", "\u25B2", "\u25BC"];
+
+function Headers({
+  headers = [],
+  templateColumns,
+  sortIndex,
+  sortType,
+  handler,
+}) {
   const numCols = headers.length + 1;
   const styleProps = {
     gridTemplateRows: "1fr",
@@ -15,11 +23,7 @@ function Headers({ headers = [], templateColumns, buttonStates, handler }) {
           onClick={() => handler({ type: "SORT", args: { index } })}
         >
           {element}
-          {buttonStates[index] === 0
-            ? null
-            : buttonStates[index] === 1
-            ? "\u25B2"
-            : "\u25BC"}
+          {sortIndex === index ? symbolMap[sortType] : null}
         </button>
       ))}
     </div>
